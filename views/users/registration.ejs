@@ -13,4 +13,12 @@
     
 </form>
 
+<%
+if(typeof message !== 'undefined'){
+    %>
+    <p style="color: green;"><%= message %> </p>
+    <%
+}
+%>
+
 <% include("../layouts/footer.ejs") %>

@@ -40,7 +40,49 @@ const insertUser = async(req,res)=>{
     }
 }
 
+// user login methods
+
+const loginLoad = async(req,res)=>{
+    try {
+        res.render("login")
+    } catch (error) {
+      console.log(error.message)  
+    }
+}
+
+const verifyLogin = async(req,res)=>{
+    try {
+        const email = req.body.email
+        const password = req.body.password
+       
+        const userData = await User.findOne({email:email})
+        if(userData){
+            const passwordMatch = bcrypt.compare(password,userData.password)
+            if(passwordMatch){
+                res.redirect("/home")
+            }else{
+                res.render("login",{message:"Invalid credintials"}) 
+            }
+        }else{
+            res.render("login",{message:"Invalid credintials"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const loadHome = async(req,res)=>{
+    try {
+       res.render("home")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports ={
     loadRegister,
-    insertUser
+    insertUser,
+    loginLoad,
+    verifyLogin,
+    loadHome
 }
