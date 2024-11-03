@@ -59,6 +59,7 @@ const verifyLogin = async(req,res)=>{
         if(userData){
             const passwordMatch = bcrypt.compare(password,userData.password)
             if(passwordMatch){
+                req.session.user_id = userData._id
                 res.redirect("/home")
             }else{
                 res.render("login",{message:"Invalid credintials"}) 
@@ -79,10 +80,20 @@ const loadHome = async(req,res)=>{
     }
 }
 
+const userLogout = async(req,res)=>{
+    try {
+        req.session.destroy()
+        res.redirect("/")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports ={
     loadRegister,
     insertUser,
     loginLoad,
     verifyLogin,
-    loadHome
+    loadHome,
+    userLogout
 }

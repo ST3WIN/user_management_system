@@ -1,6 +1,6 @@
 <% include("../layouts/header.ejs") %>
 
-<h1>USer registration Form</h1>
+<!-- <h1>USer registration Form</h1>
 
 <form action="" method="post">
     <input type="text" name="name" placeholder="Enter Name" required>
@@ -19,6 +19,106 @@ if(typeof message !== 'undefined'){
     <p style="color: green;"><%= message %> </p>
     <%
 }
-%>
+%> -->
+<head>
+    <title>User Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background gradient for the whole page */
+        body {
+            background: linear-gradient(135deg, #f06, #4a90e2);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container styling */
+        .form-container {
+            background-color: #fff;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        /* Title styling */
+        .form-container h1 {
+            font-size: 2rem;
+            color: #4a90e2;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Form input styling */
+        .form-container .form-control {
+            border-radius: 20px;
+            padding: 0.75rem;
+            border: 2px solid #4a90e2;
+        }
+
+        .form-container .form-control:focus {
+            box-shadow: none;
+            border-color: #f06;
+        }
+
+        /* Button styling */
+        .form-container .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            border-radius: 20px;
+            padding: 0.75rem;
+            font-weight: bold;
+        }
+
+        .form-container .btn-primary:hover {
+            background-color: #f06;
+            border-color: #f06;
+        }
+
+        /* Message styling */
+        .form-container .text-success {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+
+<div class="form-container">
+    <h1>User Registration</h1>
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+        </div>
+        
+        <div class="d-grid">
+            <input type="submit" value="Register" class="btn btn-primary">
+        </div>
+    </form>
+
+    <% if (typeof message !== 'undefined') { %>
+        <p class="text-success text-center mt-3"><%= message %></p>
+    <% } %>
+</div>
+
+<!-- Bootstrap JS (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <% include("../layouts/footer.ejs") %>
