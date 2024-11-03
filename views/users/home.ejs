@@ -1,6 +1,110 @@
 <% include("../layouts/header.ejs") %>
 
-<h1 style="color: orange;">Welcome to homepage</h1>
-<a href="/logout">Logout</a>
+<!-- <h1 style="color: orange;">Welcome <%= user.name%></h1>
 
+<table>
+    <tr>
+        <td>Name</td>
+        <td><%= user.name%></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><%= user.email%></td>
+    </tr>
+</table>
+<a href="/edit?id=<%= user._id %>">Edit</a>
+<br><br>
+<a href="/logout">Logout</a> -->
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+/* General Styles */
+body {
+    background-color: #f0f8ff; /* Light blue background for the whole page */
+    font-family: Arial, sans-serif;
+    }
+    
+    /* Welcome Section */
+    .welcome-heading {
+    color: #ff7f50; /* Coral color */
+    font-weight: bold;
+    margin-bottom: 30px;
+    }
+    
+    /* Card Styling */
+    .user-card {
+    background-color: #ffffff; /* White background for card */
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Table Styling */
+    .user-info-table {
+    background-color: #f9f9f9; /* Light gray background */
+    }
+    .user-info-table th,
+    .user-info-table td {
+    color: #333; /* Dark text color */
+    }
+    
+    /* Buttons */
+    .btn-custom-edit {
+    background-color: #ffc107; /* Yellow color for edit */
+    color: white;
+    border: none;
+    }
+    .btn-custom-logout {
+    background-color: #dc3545; /* Red color for logout */
+    color: white;
+    border: none;
+    }
+    
+    .btn-custom-edit:hover {
+    background-color: #e0a800;
+    }
+    
+    .btn-custom-logout:hover {
+    background-color: #c82333;
+    }
+    </style>
+</head>
+
+<div class="container mt-5">
+    <!-- Welcome Section -->
+    <div class="text-center mb-4">
+        <h1 class="display-4 welcome-heading">Welcome, <%= user.name %>!</h1>
+    </div>
+
+    <!-- User Details Card -->
+    <div class="card user-card p-3 mb-5">
+        <div class="card-body">
+            <h5 class="card-title text-center">User Information</h5>
+            <table class="table table-hover user-info-table mt-3">
+                <tbody>
+                    <tr>
+                        <td><strong>Name</strong></td>
+                        <td><%= user.name %></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td><%= user.email %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-center">
+        <a href="/edit?id=<%= user._id %>" class="btn btn-custom-edit btn-lg mx-2">
+            <i class="bi bi-pencil-square"></i> Edit Profile
+        </a>
+        <a href="/logout" class="btn btn-custom-logout btn-lg mx-2">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <% include("../layouts/footer.ejs") %>

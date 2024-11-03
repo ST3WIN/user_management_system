@@ -57,7 +57,7 @@ const verifyLogin = async(req,res)=>{
        
         const userData = await User.findOne({email:email})
         if(userData){
-            const passwordMatch = bcrypt.compare(password,userData.password)
+            const passwordMatch = await bcrypt.compare(password,userData.password)
             if(passwordMatch){
                 req.session.user_id = userData._id
                 res.redirect("/home")
@@ -74,7 +74,8 @@ const verifyLogin = async(req,res)=>{
 
 const loadHome = async(req,res)=>{
     try {
-       res.render("home")
+        const userData = await User.findById({_id:req.session.user_id})
+       res.render("home",{user:userData})
     } catch (error) {
         console.log(error.message)
     }
@@ -89,11 +90,37 @@ const userLogout = async(req,res)=>{
     }
 }
 
+//user profile update
+const editLoad = async(req,res)=>{
+    try {
+        const id = req.query.id
+        const userData = await User.findById({_id:id})
+        if(userData){
+            res.render("edit",{user:userData})
+        }else{
+            res.redirect("/home")
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const updateProfile = async(req,res)=>{
+    try {
+        const userData = await User.findByIdAndUpdate({_id:req.body.user_id},{$set:{name:req.body.name, email:req.body.email}})
+        res.redirect("/home")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports ={
     loadRegister,
     insertUser,
     loginLoad,
     verifyLogin,
     loadHome,
-    userLogout
+    userLogout,
+    editLoad,
+    updateProfile
 }
