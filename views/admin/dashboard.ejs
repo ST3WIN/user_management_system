@@ -8,6 +8,7 @@
     <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Actions</th>
     </tr>
 
     <%
@@ -17,6 +18,7 @@
                 <tr>
                     <td><%= users[i].name %></td>
                     <td><%= users[i].email %></td>
+                    <td><a href="/admin/edit-user?id=<%= users[i]._id %>">Edit</a></td>
                 </tr>
                 <%
             }

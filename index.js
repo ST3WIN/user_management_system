@@ -17,6 +17,6 @@ const adminRoute = require("./routes/adminRoute")
 app.use("/admin",adminRoute)
 
 
-app.listen(3000,()=>{
+app.listen(8800,()=>{
     console.log("Sever is running on port 3000")
 })
