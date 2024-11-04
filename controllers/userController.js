@@ -31,7 +31,8 @@ const insertUser = async(req,res)=>{
         const userData = await user.save();
         
         if(userData){
-            res.render("registration",{message:"Succesfully registered!"})
+            res.render("login",{msg:"Succesfully registered!"})
+            // res.render("login")
         }else{
             res.render("registration",{message:"Registration failed!"})
         }
@@ -83,7 +84,7 @@ const loadHome = async(req,res)=>{
 
 const userLogout = async(req,res)=>{
     try {
-        req.session.destroy()
+        req.session.user_id=null
         res.redirect("/")
     } catch (error) {
         console.log(error.message)

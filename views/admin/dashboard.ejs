@@ -1,0 +1,34 @@
+<% include("../layouts/header.ejs")%>
+
+<h1>Dashboard</h1>
+
+<a href="/admin/new-user">Add User</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+
+    <%
+     if(users.length>0){
+            for(let i=0;i<users.length;i++){
+                %>
+                <tr>
+                    <td><%= users[i].name %></td>
+                    <td><%= users[i].email %></td>
+                </tr>
+                <%
+            }
+     }else{
+        %>
+            <tr>
+                <td colspan="5">Users not found</td>
+            </tr>
+        <%
+     }
+    %>
+
+</table>
+<a href="/admin/home">Back</a>
+
+<% include("../layouts/footer.ejs")%>

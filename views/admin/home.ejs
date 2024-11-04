@@ -1,0 +1,82 @@
+<% include("../layouts/header.ejs")%>
+
+<!-- <h1>Welcome,<%= admin.name%></h1>
+
+<a href="/admin/dashboard">Dashboard</a>
+
+<table>
+    <tr>
+        <td>Name</td>
+        <td><%= admin.name%></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><%= admin.email%></td>
+    </tr>
+</table>
+
+<a href="/admin/Logout">Logout</a> -->
+
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 5%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .table td {
+            font-weight: bold;
+        }
+        .btn {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<div class="container">
+    <h1>Welcome, <%= admin.name %></h1>
+    
+    <div class="links">
+        <a href="/admin/dashboard" class="btn btn-primary">Dashboard</a>
+        <a href="/admin/Logout" class="btn btn-danger">Logout</a>
+    </div>
+    
+    <table class="table table-striped table-hover mt-4 text-light">
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td><%= admin.name %></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><%= admin.email %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<% include("../layouts/footer.ejs")%>

@@ -35,6 +35,13 @@
     <%
 }
 %>
+<%
+if(typeof msg !== 'undefined'){
+%>
+<h4 style="color: green;"><%= msg %> </h4>
+<%
+}
+%>
             <div class="input-box">
                 <input type="email" name="email" required>
                 <label>Email</label>

@@ -3,7 +3,13 @@ const user_route = express()
 const session = require("express-session")
 
 const config = require("../config/config")
-user_route.use(session({secret:config.sessionSecret}))
+user_route.use(session({
+    name: 'user-session',
+    secret: config.sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000, secure: process.env.NODE_ENV === 'production' } // 1-hour session, secure in production
+}));
 
 const auth = require("../middleware/auth")
 
