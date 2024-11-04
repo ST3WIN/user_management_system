@@ -35,6 +35,7 @@ admin_route.get("/logout",auth.isLogin,adminController.logout)
 admin_route.get("/dashboard",auth.isLogin,adminController.adminDashboard)
 
 admin_route.get("/new-user",auth.isLogin,adminController.newUserLoad)
+admin_route.post("/new-user",adminController.addUser)
 
 admin_route.get("*",function(req,res){
     res.redirect("/admin")

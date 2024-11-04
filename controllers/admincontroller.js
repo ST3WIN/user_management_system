@@ -1,6 +1,15 @@
 const User = require("../models/userModel")
 const bcrypt = require("bcrypt")
 
+const securePassword = async(password)=>{
+    try {
+        const passwordHash = await bcrypt.hash(password,10)
+        return passwordHash
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 const loadLogin = async(req,res)=>{
     try {
         res.render("login")
@@ -61,10 +70,43 @@ const adminDashboard = async(req,res)=>{
     }
 }
 
+const newUserLoad = async(req,res)=>{
+    try {
+        res.render("new-user")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const addUser = async(req,res)=>{
+    try {
+        const name = req.body.name
+        const email = req.body.email
+        const spassword = await securePassword(req.body.password)
+        const user = new User({
+            name:name,
+            email:email,
+            password:spassword,
+            is_admin:0
+        })
+        const userData = await user.save()
+
+        if(userData){
+            res.redirect("/admin/dashboard")
+        }else{
+            res.render("new-user",{message:"Something went wrong"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loadLogin,
     verifyLogin,
     loadDashboard,
     logout,
-    adminDashboard
+    adminDashboard,
+    newUserLoad,
+    addUser
 }
