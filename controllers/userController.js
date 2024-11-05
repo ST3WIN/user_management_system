@@ -12,7 +12,7 @@ const securePassword = async(password)=>{
 
 const loadRegister = async(req,res)=>{
     try {
-        res.render("registration")
+       return res.render("registration")
     } catch (error) {
         console.log(error.message)
     }
@@ -31,13 +31,14 @@ const insertUser = async(req,res)=>{
         const userData = await user.save();
         
         if(userData){
-            res.render("login",{msg:"Succesfully registered!"})
-            // res.render("login")
+        //    return res.render("registration",{msg:"Succesfully registered!"})
+              return res.redirect("/login?msg=Succesfully registered");
         }else{
-            res.render("registration",{message:"Registration failed!"})
+          return  res.render("registration",{msg:"Registration failed!"});
         }
     } catch (error) {
         console.log(error.message)
+        return res.render("registration",{msg:"Check email And password"})
     }
 }
 
@@ -45,7 +46,8 @@ const insertUser = async(req,res)=>{
 
 const loginLoad = async(req,res)=>{
     try {
-        res.render("login")
+        const msg = req.query.msg || "";
+      return  res.render("login",{msg})
     } catch (error) {
       console.log(error.message)  
     }
@@ -61,12 +63,16 @@ const verifyLogin = async(req,res)=>{
             const passwordMatch = await bcrypt.compare(password,userData.password)
             if(passwordMatch){
                 req.session.user_id = userData._id
-                res.redirect("/home")
+                console.log('asd')
+                return res.redirect("/home");
+               
             }else{
-                res.render("login",{message:"Invalid credintials"}) 
+                console.log("l")
+                return res.render("login",{message:"Invalid credintials"}) 
             }
         }else{
-            res.render("login",{message:"Invalid credintials"})
+            console.log("2")
+            return res.render("login",{message:"Invalid credintials"})
         }
     } catch (error) {
         console.log(error.message)
@@ -75,8 +81,11 @@ const verifyLogin = async(req,res)=>{
 
 const loadHome = async(req,res)=>{
     try {
-        const userData = await User.findById({_id:req.session.user_id})
-       res.render("home",{user:userData})
+        const userData = await User.findById({_id:req.session.user_id});
+        console.log('asdfg');
+        return res.render("home",{user:userData});
+        
+        
     } catch (error) {
         console.log(error.message)
     }
@@ -85,7 +94,7 @@ const loadHome = async(req,res)=>{
 const userLogout = async(req,res)=>{
     try {
         req.session.user_id=null
-        res.redirect("/")
+        return res.redirect("/")
     } catch (error) {
         console.log(error.message)
     }
@@ -97,9 +106,9 @@ const editLoad = async(req,res)=>{
         const id = req.query.id
         const userData = await User.findById({_id:id})
         if(userData){
-            res.render("edit",{user:userData})
+            return res.render("edit",{user:userData})
         }else{
-            res.redirect("/home")
+            return res.redirect("/home")
         }
     } catch (error) {
         console.log(error.message)
@@ -109,7 +118,7 @@ const editLoad = async(req,res)=>{
 const updateProfile = async(req,res)=>{
     try {
         const userData = await User.findByIdAndUpdate({_id:req.body.user_id},{$set:{name:req.body.name, email:req.body.email}})
-        res.redirect("/home")
+        return res.redirect("/home")
     } catch (error) {
         console.log(error.message)
     }

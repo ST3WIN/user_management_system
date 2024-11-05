@@ -12,7 +12,7 @@ const securePassword = async(password)=>{
 
 const loadLogin = async(req,res)=>{
     try {
-        res.render("login")
+        return res.render("login")
     } catch (error) {
         console.log(error.message)
     }
@@ -27,16 +27,16 @@ const verifyLogin = async(req,res)=>{
             const passwordMatch = await bcrypt.compare(password,userData.password)
             if(passwordMatch){
                 if(userData.is_admin===0){
-                    res.render("login",{message:"Invalid credentials"})
+                    return res.render("login",{message:"Invalid credentials"})
                 }else{
                     req.session.admin_id = userData.id
-                    res.redirect("/admin/home")
+                    return res.redirect("/admin/home")
                 }
             }else{
-                res.render("login",{message:"Invalid credentials"}) 
+                return res.render("login",{message:"Invalid credentials"}) 
             }
         }else{
-            res.render("login",{message:"Invalid credentials"})
+            return res.render("login",{message:"Invalid credentials"})
         }
     } catch (error) {
         console.log(error.message)
@@ -46,7 +46,7 @@ const verifyLogin = async(req,res)=>{
 const loadDashboard = async(req,res)=>{
     try {
         const userData = await User.findById({_id:req.session.admin_id})
-        res.render("home",{admin:userData})
+        return res.render("home",{admin:userData})
     } catch (error) {
         console.log(error.message)
     }
@@ -55,7 +55,7 @@ const loadDashboard = async(req,res)=>{
 const logout = async(req,res)=>{
     try {
         req.session.admin_id=null
-        res.redirect("/admin")
+        return res.redirect("/admin")
     } catch (error) {
         console.log(error.message)
     }
@@ -72,7 +72,7 @@ const adminDashboard = async(req,res)=>{
 
 const newUserLoad = async(req,res)=>{
     try {
-        res.render("new-user")
+        return res.render("new-user")
     } catch (error) {
         console.log(error.message)
     }
@@ -92,12 +92,13 @@ const addUser = async(req,res)=>{
         const userData = await user.save()
 
         if(userData){
-            res.redirect("/admin/dashboard")
+            return res.render("new-user",{message:"Succesfully registered"})
         }else{
-            res.render("new-user",{message:"Something went wrong"})
+            res.render("new-user",{message:"Registration failes"})
         }
     } catch (error) {
         console.log(error.message)
+        return res.render("new-user",{message:"Something went wrong"})
     }
 }
 
@@ -106,9 +107,9 @@ const editUserLoad = async(req,res)=>{
         const id = req.query.id
         const userData = await User.findById({_id:id})
         if(userData){
-            res.render("edit-user",{user:userData})
+            return res.render("edit-user",{user:userData})
         }else{
-            res.redirect("/admin/dashboard")
+            return res.redirect("/admin/dashboard")
         }
         
     } catch (error) {
@@ -118,7 +119,18 @@ const editUserLoad = async(req,res)=>{
 
 const updateUser = async(req,res)=>{
     try {
-        
+        const userData = await User.findByIdAndUpdate({_id:req.body.id},{$set:{name:req.body.name,email:req.body.email}})
+        return res.redirect("/admin/dashboard")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const deleteUser = async(req,res)=>{
+    try {
+        const id = req.query.id
+        await User.deleteOne({_id:id})
+        return res.redirect("/admin/dashboard")
     } catch (error) {
         console.log(error.message)
     }
@@ -133,5 +145,6 @@ module.exports = {
     newUserLoad,
     addUser,
     editUserLoad,
-    updateUser
+    updateUser,
+    deleteUser
 }

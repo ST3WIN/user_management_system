@@ -43,6 +43,12 @@
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Update User Profile</h3>
                     
+                    <!-- Go Back Button -->
+                    <div class="mb-3 text-start">
+                        <a href="/admin/dashboard" class="btn btn-secondary btn-sm">&larr; Go Back</a>
+                    </div>
+                    
+                    <!-- Update Form -->
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<%= user._id %>">
                         
@@ -74,8 +80,6 @@
         </div>
     </div>
 </div>
-
-<a href="/admin/">Go Dashboard</a>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
